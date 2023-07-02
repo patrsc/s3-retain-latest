@@ -6,14 +6,14 @@ Automated script to retain the latest version of all objects in an [S3](https://
 
 S3 object locking sets the expiration time of object retention at the **creation** of a new object version. This means that if the latest version of an object is not updated for a time longer than the retention period, it is not locked any more.
 
-*Example:* A BLOB is created and never updated for 1.5 years and the retention period is set to 1 year. After slightly more that 1 year this blob could be deleted immediately, although it is the latest version.
+*Example:* A BLOB is created and never updated for 1.5 years and the retention period is set to 1 year. After slightly more that 1 year this BLOB could be deleted immediately, although it is the latest version.
 
 ## What this script does
 
 To prevent this scenario, this script keeps the retention time of the latest version of every object updated. This script should be run regularly (e.g. every day) using an automatic background job (e.g. cron).
 
 What this script does:
-* get the default retention period of the given bucket (e.g. 90 days)
+* get the default retention period of the given S3 bucket (e.g. 90 days)
 * iterate over all (current) objects in the bucket
   * if the latest version of the object has a retention time less than now + half of the default retention period (e.g. 45 days), then
     * set its retention time to now + the default retention period (e.g. 90 days)
