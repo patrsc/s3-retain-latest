@@ -40,8 +40,8 @@ def main():
             )
             t_new = client.get_object_retention(
                 Bucket=bucket,Key=key)['Retention']['RetainUntilDate']
-            if t_new != t_retain_until:
-                raise ValueError(f'setting updated time failed for key {key}')
+            if t_new < t_threshold:
+                raise ValueError(f'updating retention time failed for {key}')
             n_updated += 1
         n_total += 1
     
