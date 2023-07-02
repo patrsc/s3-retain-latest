@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "s3-retain-latest"
+version = "0.1.0"
+description = "retain the latest version of all objects in an S3 bucket"
+authors = ["Patrick <patrsc@nubu.at>"]
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = "^3.11"
+boto3 = "^1.26.165"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
