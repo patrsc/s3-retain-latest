@@ -5,6 +5,7 @@ import logging
 
 
 def main():
+    t_start = datetime.datetime.now(datetime.timezone.utc)
     bucket = os.environ['S3_BUCKET']
     factor = float(os.environ['S3_RETAIN_FACTOR']) if 'S3_RETAIN_FACTOR' in os.environ else 0.5
     options = dict(
@@ -44,7 +45,9 @@ def main():
             n_updated += 1
         n_total += 1
     
-    return n_updated, n_total
+    task_duration = datetime.datetime.now(datetime.timezone.utc) - t_start
+
+    return n_updated, n_total, task_duration
 
 
 def list_all_objects(client, bucket):
@@ -77,7 +80,8 @@ def get_default_retention(client, bucket):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
     try:
-        n_updated, n_total = main()
-        logging.info(f's3-retain finished successfully and updated {n_updated} out of {n_total} objects')
+        n_updated, n_total, task_duration = main()
+        logging.info(f's3-retain finished successfully and updated ' +
+                     '{n_updated} out of {n_total} objects in {task_duration.total_seconds():.01f} seconds')
     except Exception as e:
         logging.error(f's3-retain failed with error: {type(e).__name__}: {e}')
