@@ -34,7 +34,7 @@ Clone the repository:
 
 ```
 cd ~
-git clone <url>
+git clone https://github.com/patrsc/s3-retain-latest.git
 cd s3-retain-latest
 ```
 
