@@ -82,6 +82,6 @@ if __name__ == '__main__':
     try:
         n_updated, n_total, task_duration = main()
         logging.info(f's3-retain finished successfully and updated ' +
-                     '{n_updated} out of {n_total} objects in {task_duration.total_seconds():.01f} seconds')
+                     f'{n_updated} out of {n_total} objects in {task_duration.total_seconds():.01f} seconds')
     except Exception as e:
         logging.error(f's3-retain failed with error: {type(e).__name__}: {e}')
