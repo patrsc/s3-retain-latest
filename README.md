@@ -89,3 +89,10 @@ and add the following line to run the task daily (change path and bucket name ac
 ```
 @daily bash /home/user/s3-retain-latest/run.sh example
 ```
+
+Make sure that `.env` files are only readable by the root user (because they contain the access secret):
+
+```
+sudo chown root:root *.env
+sudo chmod 600 *.env
+```
